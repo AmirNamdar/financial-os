@@ -1,19 +1,87 @@
-# Tech Tooling Decisions
+# Tech Tooling Documentation
 
-This document outlines the key technical tools used in our project and the reasoning behind their selection.
+This document explains the technical decisions behind the tools we use in this project, including why we chose them and how they are configured.
+
+## Runtime Environment Management - fnm (Fast Node Manager)
+
+### Why
+
+- **Performance**: fnm is significantly faster than nvm (Node Version Manager) due to its Rust implementation
+- **Cross-Platform**: Works seamlessly across different operating systems
+- **Shell Integration**: Provides automatic Node.js version switching when entering project directories
+- **Project-Specific Versions**: Allows different projects to use different Node.js versions without conflicts
+- **Modern Features**: Supports the latest Node.js features and has better TypeScript support
+- **Project Standardization**: Ensures all developers use the same Node.js version for consistency
+
+### Configuration
+
+- Installed via Homebrew on macOS: `brew install fnm`
+- Shell integration added to `.zshrc`: `eval "$(fnm env --use-on-cd)"`
+- Project-specific Node.js version defined in `.node-version` file (version 20)
+- Automatic version switching when entering project directory
+- Version management is handled through the `.node-version` file, making it easy to update across the team
 
 ## Runtime - Node.js
 
 ### Why
 
-- Using Node.js 20 for its improved performance, better ES modules support, and latest ECMAScript features
-- LTS version that provides long-term stability and security updates
-- Strong ecosystem compatibility with our chosen frameworks and tools
+- **TypeScript Support**: Native support for TypeScript through ts-node and TypeScript compiler
+- **NestJS Framework**: Built on top of Node.js, providing robust server-side capabilities
+- **Large Ecosystem**: Access to npm's extensive package ecosystem
+- **Performance**: V8 engine provides excellent runtime performance
+- **Async/Await**: Native support for asynchronous programming patterns
 
 ### Configuration
 
-- Set in CI pipeline via `actions/setup-node@v4` with Node.js 20
-- Local development requires Node.js 20+ for compatibility with dependencies
+- Version: 20.x LTS (managed by fnm)
+- TypeScript configuration in `tsconfig.json`
+- Build and runtime scripts defined in `package.json`
+
+## Testing - Jest
+
+### Why
+
+- **NestJS Integration**: Official testing framework for NestJS applications
+- **TypeScript Support**: Native TypeScript support without additional configuration
+- **Snapshot Testing**: Built-in support for snapshot testing
+- **Parallel Execution**: Runs tests in parallel for faster execution
+- **Code Coverage**: Built-in code coverage reporting
+
+### Configuration
+
+- Configuration in `jest.config.js`
+- Test files located in `test/` directory
+- Coverage reports generated with `npm run test:cov`
+
+## Linting - ESLint
+
+### Why
+
+- **TypeScript Support**: Excellent TypeScript linting capabilities
+- **Code Quality**: Enforces consistent code style and catches potential errors
+- **Extensible**: Large ecosystem of plugins and configurations
+- **Integration**: Works well with modern IDEs and CI/CD pipelines
+
+### Configuration
+
+- Configuration in `.eslintrc.json`
+- TypeScript-specific rules in `eslint.config.js`
+- Pre-commit hooks for automatic linting
+
+## Code Formatting - Prettier
+
+### Why
+
+- **Consistency**: Enforces a consistent code style across the project
+- **Integration**: Works well with ESLint and TypeScript
+- **Zero Configuration**: Opinionated defaults that work well for most projects
+- **IDE Support**: Wide range of IDE integrations
+
+### Configuration
+
+- Configuration in `.prettierrc`
+- Integration with ESLint through `eslint-config-prettier`
+- Format on save enabled in recommended IDE settings
 
 ## Framework - NestJS
 
@@ -48,41 +116,6 @@ This document outlines the key technical tools used in our project and the reaso
 - Path aliases configured for cleaner imports
 - Configured to work with ESM modules
 - Compilation targets ES2022 for modern JavaScript features
-
-## Linting - ESLint
-
-### Why
-
-- Industry standard for static code analysis
-- Helps maintain consistent code style
-- Catches potential errors and bad practices
-- Integrates well with TypeScript
-- Customizable to match team preferences
-
-### Configuration
-
-- Using modern flat config format
-- TypeScript-specific rules enabled
-- Configured to auto-fix on save
-- Integrated with CI pipeline for automated checks
-- Custom rules for enforcing best practices
-
-## Testing - Jest
-
-### Why
-
-- De facto standard for JavaScript/TypeScript testing
-- Excellent TypeScript support
-- Built-in code coverage reporting
-- Snapshot testing capabilities
-- Fast parallel test execution
-
-### Configuration
-
-- Configured for TypeScript support
-- ES modules support enabled
-- Integrated with CI pipeline
-- Test files pattern: `*.spec.ts`
 
 ## CI/CD - GitHub Actions
 
