@@ -1,0 +1,16 @@
+# Node.js
+node_modules
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# build artifacts
+dist
+
+# random shit
+.DS_Store
+
+# config
+.env
