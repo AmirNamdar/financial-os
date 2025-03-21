@@ -1,0 +1,55 @@
+High level project overview
+
+This project consolidates all financial data point a household might have into one place.
+- Once we obtain the data, we will parse it.
+    Each integration of data-type+data-source will have its own parsing consolidates
+- The parsed data will be in a uniform format for all integrations,
+    this will ensure we can all data from all sources as a unified corpes.
+- After we will parse the data we will need to persist it somewhere,
+    it could be local database (sqlite/postgres), csv files, googlesheets
+- After we persist the data we will have a presentation layer,
+    we will start with a very simple UI to present all transaction with basic filers and a "total line"
+    in a later stage we will make it more complex with cool analytics and forcastings.
+- Ideally most if not all of the proccess of data collection and injestion should be configurable with a .yml file(s):
+    current ideas:
+        - data collection:
+            user will specify their credit card vendor, bank info.
+                if needed they will provide credentials so we can reach the data
+                    we will need a security model for that
+
+        - data injestion 
+            if we expose something in the .yml files, it means we already know how to injest it.
+
+        - data export:
+            user should specify where he wants to persist the data and provide the needed credentials so we can write and read from there
+
+        - ui config
+            later!!
+        
+
+
+
+Kinds of Data points:
+- Credit card transactions
+- Bank transactions
+- Pension funds status and monthly contributions
+- Investment funds status and monthly contributions
+- Insurnace Payments
+- Mortgage status and payments
+- Loans status and payment
+
+Data Providers
+For every type of data we may have multiple providers, for example:
+A familiy could have multiple credit cards from multiple vendors.
+
+Data Source
+There may be multiple sources to get data from
+Data source examples are:
+- CSV files
+- Site scraping
+
+Each data source could be acheivied in numerous way:
+- Users will provider csv files
+- Users will provider credentails so we can log into a website on behalf of the user and get those data files
+
+Every segments of data_type and vendor will have its own integration
