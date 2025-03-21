@@ -1,3 +1,8 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
 # Tech Tooling Documentation Rule
 
 We want to make it clear to new developers why we use external tools and why we decided to use them in the specific setup.

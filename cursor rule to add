@@ -1,0 +1,13 @@
+use nestjs docs
+
+maintain
+    glossary of theme terms
+    tech architecture docs
+
+
+use my tooling (tsc, lint, format)
+
+verify the solutions work
+
+when i tell you to run sanity you need to run x y z
+
