@@ -1,29 +1,35 @@
-# Justfile for task automation
+# This is a justfile for task automation
+# Run 'just --list' to see all available commands
 
-# Task to build the application
+# Build the application for production
 build:
-    npm run build
+    @npm run build
 
-# Task to start the application in development mode with hot-reload
+# Start the application in development mode with hot-reload
 dev:
-    npm run start:dev
+    @npm run start:dev
 
-# Task to start the application in production mode
+# Start the application in production mode
 start:
-    npm run start:prod
+    @npm run start:prod
 
-# Task to run tests
+# Run all tests
 test:
-    npm run test
+    @npm run test
 
-# Task to lint the code
+# Lint the code using ESLint
 lint:
-    npm run lint
+    @npm run lint
 
-# Task to format the code
+# Format the code using Prettier
 format:
-    npm run format
+    @npm run format
 
-# Task to compile TypeScript
+# Compile TypeScript files
 compile:
-    npm run compile 
+    @npm run compile
+
+# Run a TypeScript script with ES module support
+# Example: just script src/myfile.ts
+script file:
+    @NODE_OPTIONS="--loader ts-node/esm --no-warnings" npx ts-node-esm {{file}}
