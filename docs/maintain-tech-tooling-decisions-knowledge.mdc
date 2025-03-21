@@ -1,0 +1,44 @@
+# Tech Tooling Documentation Rule
+
+We want to make it clear to new developers why we use external tools and why we decided to use them in the specific setup.
+
+## File Location
+The file should be located at: "docs/tech_tooling.md"
+
+## Document Structure
+1. Start with a brief introduction explaining the purpose of the document.
+
+2. For each tool, create a section with:
+   - H2 title in the format: `## <Tool_Type> - <Tool_Name>`
+     Examples:
+     - `## Runtime - Node.js`
+     - `## Testing - Jest`
+     - `## Linting - ESLint`
+   
+   - Under each tool section:
+     - H3 "Why" section explaining the reasoning behind choosing this tool
+     - H3 "Configuration" section (where appropriate) detailing integration and setup specifics
+
+## Maintenance Requirements
+- The document must be updated whenever:
+  1. A new tool is added to the project
+  2. An existing tool's configuration is modified
+  3. A tool is upgraded with significant changes
+  4. A tool is replaced or removed
+- Updates should be made in the same PR that introduces these changes
+- Both the "Why" and "Configuration" sections should be reviewed and updated as needed
+
+## Example Format
+```markdown
+## <Tool_Type> - <Tool_Name>
+
+### Why
+- Reason 1
+- Reason 2
+- Reason 3
+
+### Configuration
+- Config detail 1
+- Config detail 2
+- Config detail 3
+``` 
