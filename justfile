@@ -1,35 +1,77 @@
 # This is a justfile for task automation
 # Run 'just --list' to see all available commands
 
-# Build the application for production
-build:
-    @npm run build
+# Build applications for production
+# Usage: just build [app]
+# If app is not provided, builds all applications
+build app="":
+  #!/usr/bin/env sh
+  if [ "{{app}}" = "" ]; then \
+  npm run build; \
+  else \
+  npm run build --workspace=apps/{{app}}; \
+  fi
 
-# Start the application in development mode with hot-reload
-dev:
-    @npm run start:dev
+# Start an application in development mode with hot-reload
+# Usage: just dev [app]
+# If app is not provided, starts the backend
+dev app="backend":
+  #!/usr/bin/env sh
+  npm run start:dev --workspace=apps/{{app}}
 
-# Start the application in production mode
-start:
-    @npm run start:prod
+# Start an application in production mode
+# Usage: just start [app]
+# If app is not provided, starts the backend
+start app="backend":
+  #!/usr/bin/env sh
+  npm run start:prod --workspace=apps/{{app}}
 
-# Run all tests
-test:
-    @npm run test
+# Run tests
+# Usage: just test [app]
+# If app is not provided, runs tests for all applications
+test app="":
+  #!/usr/bin/env sh
+  if [ "{{app}}" = "" ]; then \
+  npm run test; \
+  else \
+  npm run test --workspace=apps/{{app}}; \
+  fi
 
 # Lint the code using ESLint
-lint:
-    @npm run lint
+# Usage: just lint [app]
+# If app is not provided, lints all applications
+lint app="":
+  #!/usr/bin/env sh
+  if [ "{{app}}" = "" ]; then \
+  npm run lint; \
+  else \
+  npm run lint --workspace=apps/{{app}}; \
+  fi
 
 # Format the code using Prettier
-format:
-    @npm run format
+# Usage: just format [app]
+# If app is not provided, formats all applications
+format app="":
+  #!/usr/bin/env sh
+  if [ "{{app}}" = "" ]; then \
+  npm run format; \
+  else \
+  npm run format --workspace=apps/{{app}}; \
+  fi
 
 # Compile TypeScript files
-compile:
-    @npm run compile
+# Usage: just compile [app]
+# If app is not provided, compiles all applications
+compile app="":
+  #!/usr/bin/env sh
+  if [ "{{app}}" = "" ]; then \
+  npm run compile; \
+  else \
+  npm run compile --workspace=apps/{{app}}; \
+  fi
 
 # Run a TypeScript script with ES module support
 # Example: just script src/myfile.ts
 script file:
-    @NODE_OPTIONS="--loader ts-node/esm --no-warnings" npx ts-node-esm {{file}}
+  #!/usr/bin/env sh
+  NODE_OPTIONS="--loader ts-node/esm --no-warnings" npx ts-node-esm {{file}}

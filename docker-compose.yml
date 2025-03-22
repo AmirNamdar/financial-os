@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: apps/backend/Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    volumes:
+      # Mount source code for live updates
+      - ./apps/backend/src:/app/apps/backend/src
+      # Mount package files to trigger rebuilds when dependencies change
+      - ./apps/backend/package.json:/app/apps/backend/package.json
+      - ./apps/backend/package-lock.json:/app/apps/backend/package-lock.json
+      # Mount test files for running tests
+      - ./apps/backend/test:/app/apps/backend/test
+    networks:
+      - financial-os-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  mcp-server:
+    build:
+      context: .
+      dockerfile: apps/mcp-server/Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=development
+    volumes:
+      # Mount source code for live updates
+      - ./apps/mcp-server/src:/app/apps/mcp-server/src
+      # Mount package files to trigger rebuilds when dependencies change
+      - ./apps/mcp-server/package.json:/app/apps/mcp-server/package.json
+      - ./apps/mcp-server/package-lock.json:/app/apps/mcp-server/package-lock.json
+      # Mount test files for running tests
+      - ./apps/mcp-server/test:/app/apps/mcp-server/test
+    networks:
+      - financial-os-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  financial-os-network:
+    driver: bridge 

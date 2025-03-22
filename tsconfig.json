@@ -1,15 +1,10 @@
 {
+  "extends": "./apps/backend/tsconfig.json",
   "compilerOptions": {
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "target": "ESNext",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "declaration": true,
-    "sourceMap": true
-  }
+    "baseUrl": ".",
+    "paths": {
+      "@financial-os/*": ["apps/*/src"]
+    }
+  },
+  "exclude": ["node_modules", "dist"]
 }

@@ -139,16 +139,46 @@ This document explains the technical decisions behind the tools we use in this p
 - Uses Node.js 20 environment
 - Caches dependencies for faster builds
 
-## Dependencies - NPM
+## Package Management
 
-### Why
+- **npm**: Primary package manager
+- **npm Workspaces**: Used for monorepo management
 
-- Using npm as it's the default package manager for Node.js
-- Lock file ensures dependency consistency across environments
-- Built-in security auditing
+  - Enables managing multiple packages/applications in a single repository
+  - Provides shared dependencies and consistent versioning
+  - Allows running commands across all workspaces or targeting specific ones
+  - Configuration in root `package.json`:
+    ```json
+    {
+      "workspaces": ["apps/*"]
+    }
+    ```
+  - Benefits:
+    - Shared `node_modules` at the root level
+    - Consistent dependency versions across all apps
+    - Ability to use workspace references in package.json
+    - Simplified dependency management
+  - Common commands:
 
-### Configuration
+    ```bash
+    # Install dependencies for all workspaces
+    npm install
 
-- Strict version management with package-lock.json
-- Scripts defined for common operations
-- Configured for ES modules with `"type": "module"`
+    # Run a command in a specific workspace
+    npm run build --workspace=apps/backend
+
+    # Run a command in all workspaces
+    npm run build --workspaces
+
+    # Add a dependency to a specific workspace
+    npm install @nestjs/common --workspace=apps/backend
+
+    # Add a shared dependency to root
+    npm install typescript -w
+
+    # Run tests in a specific workspace
+    npm run test --workspace=apps/backend
+
+    # Start development server for a specific app
+    npm run start:dev --workspace=apps/backend
+    ```

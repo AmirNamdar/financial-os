@@ -2,7 +2,6 @@
   <h1> Financial OS <h1>
 </p>
 
-
 ## Description
 
 ## Building and Running the Project
@@ -100,3 +99,142 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+
+## Project Structure
+
+```
+financial-os/
+├── apps/
+│   ├── backend/      # Main backend application
+│   └── mcp-server/   # Mission Control Protocol server
+├── libs/             # Shared libraries (if needed)
+├── package.json      # Root package.json with workspaces
+└── justfile         # Task automation
+```
+
+## Prerequisites
+
+- Node.js (version specified in .node-version)
+- npm
+- just (task runner)
+
+## Getting Started
+
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Start the development server:
+
+```bash
+# Start backend
+just dev
+
+# Start MCP server
+just dev mcp-server
+```
+
+## Available Commands
+
+### Build Commands
+
+```bash
+# Build all applications
+just build
+
+# Build specific application
+just build backend
+just build mcp-server
+```
+
+### Development Commands
+
+```bash
+# Start backend in development mode (default)
+just dev
+
+# Start specific application in development mode
+just dev backend
+just dev mcp-server
+
+# Start in production mode
+just start
+just start backend
+just start mcp-server
+```
+
+### Testing Commands
+
+```bash
+# Run tests for all applications
+just test
+
+# Run tests for specific application
+just test backend
+just test mcp-server
+```
+
+### Code Quality Commands
+
+```bash
+# Lint all applications
+just lint
+
+# Lint specific application
+just lint backend
+just lint mcp-server
+
+# Format all applications
+just format
+
+# Format specific application
+just format backend
+just format mcp-server
+```
+
+### Compilation Commands
+
+```bash
+# Compile all applications
+just compile
+
+# Compile specific application
+just compile backend
+just compile mcp-server
+```
+
+### Utility Commands
+
+```bash
+# Run a TypeScript script
+just script path/to/script.ts
+```
+
+## Development Guidelines
+
+1. Each application in the `apps/` directory should have its own:
+
+   - package.json
+   - tsconfig.json
+   - src/ directory
+   - test/ directory
+
+2. Shared code should be placed in the `libs/` directory
+
+3. Use the provided commands to maintain code quality:
+   - Run `just lint` before committing
+   - Run `just test` to ensure tests pass
+   - Run `just format` to format code
+
+## Contributing
+
+1. Create a new branch for your feature
+2. Make your changes
+3. Run tests and linting
+4. Submit a pull request
+
+## License
+
+ISC
