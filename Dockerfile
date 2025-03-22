@@ -1,31 +1,31 @@
 # Use the official Node.js 18 Alpine image as a base for the build stage
-FROM node:18-alpine AS build
+FROM node:20-alpine AS build
 
-# Set the working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json
 COPY package*.json ./
 
-# Install dependencies
 RUN npm install
 
-# Copy the rest of the application code
+# Copy source code
 COPY . .
 
 # Build the application
 RUN npm run build
 
-# Use the official Node.js 18 Alpine image as a base for the production stage
-FROM node:18-alpine AS production
+FROM node:20-alpine AS production
 
 # Set the working directory
 WORKDIR /app
 
 # Copy only the necessary files from the build stage
-COPY --from=build /app/dist ./dist
-COPY --from=build /app/node_modules ./node_modules
 COPY package*.json ./
+
+# Install only production dependencies
+RUN npm ci --only=production
+
+# Copy built application from builder stage
+COPY --from=builder /app/dist ./dist
 
 # Expose the application port
 EXPOSE 3000
