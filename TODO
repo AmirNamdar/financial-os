@@ -1,0 +1,23 @@
+Scrape Isracard - Amir
+Scrape Isracard - Gal
+Scrape Cal - Amir
+Scrape Max - Gal
+Scrape Super Pharm - Gal
+
+Save data to
+    googlesheets
+    postgres
+        (start locally and then rds)
+            * find a dashboard so i can control the db state from afar
+    
+    Integrate expesnes into YNAB
+
+    Scrape bank
+    Scrape paycheck
+        auto backup paycheck
+
+    Scrape Pension
+    Scrape Funds
+
+
+    

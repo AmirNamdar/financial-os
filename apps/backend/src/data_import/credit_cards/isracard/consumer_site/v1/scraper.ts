@@ -88,8 +88,8 @@ async function getAllTransactions(): Promise<IsracardTransactionVoucher[]> {
 }
 
 async function run() {
-  const transactions = await getTransactionsForMonth(api, ALL_CARDS[0], 1, 2025);
-  //   const transactions = await getAllTransactions();
+  //   const transactions = await getTransactionsForMonth(api, ALL_CARDS[0], 1, 2025);
+  const transactions = await getAllTransactions();
 
   console.log(`Total transactions collected: ${transactions.length}`);
   console.log('Sample transactions:', transactions.slice(0, 5));
