@@ -238,3 +238,29 @@ just script path/to/script.ts
 ## License
 
 ISC
+
+## Running TypeScript Scripts
+
+This project is configured to use ES modules by default in package.json with `"type": "module"`. However, some legacy code may still use CommonJS patterns.
+
+When running TypeScript scripts, you have a few options:
+
+1. For scripts that work with ES modules (recommended for new code):
+
+   ```
+   NODE_OPTIONS="--loader ts-node/esm --no-warnings" npx ts-node-esm path/to/script.ts
+   ```
+
+2. For scripts that need CommonJS compatibility:
+
+   ```
+   npx ts-node path/to/script.ts
+   ```
+
+3. For optimal compatibility in mixed module environments, add a local `package.json` file in the directory containing your script:
+   ```json
+   {
+     "type": "commonjs"
+   }
+   ```
+   This allows you to run scripts with `npx ts-node` even if the main project uses ES modules.

@@ -1,0 +1,10 @@
+isracard:
+  cards:
+    - id: 1234567890
+      type: credit
+      limit: 1000
+      interestRate: 18.9
+
+    - id: 1234567890
+      type: debit
+      limit: 1000

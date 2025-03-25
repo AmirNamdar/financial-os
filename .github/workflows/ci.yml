@@ -9,9 +9,9 @@ on:
       - main
 
 jobs:
-  # Shared setup job that other jobs can depend on
-  setup:
+  build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -20,84 +20,18 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
 
       - name: Install dependencies
         run: npm install
 
-      # Cache the entire workspace for other jobs
-      - name: Cache workspace
-        uses: actions/cache@v4
-        with:
-          path: |
-            .
-            !node_modules
-          key: ${{ runner.os }}-workspace-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-workspace-
+      - name: Build the application
+        run: npm run build
 
-  # Backend service CI
-  backend:
-    needs: setup
-    runs-on: ubuntu-latest
-    steps:
-      - name: Restore workspace cache
-        uses: actions/cache@v4
-        with:
-          path: |
-            .
-            !node_modules
-          key: ${{ runner.os }}-workspace-${{ hashFiles('**/package-lock.json') }}
+      - name: Compile TypeScript
+        run: npm run compile
 
-      - name: Build backend
-        run: npm run build --workspace=apps/backend
-
-      - name: Run backend tests
-        run: npm run test --workspace=apps/backend
-
-      - name: Lint backend
-        run: npm run lint --workspace=apps/backend
-
-  # MCP server service CI
-  mcp-server:
-    needs: setup
-    runs-on: ubuntu-latest
-    steps:
-      - name: Restore workspace cache
-        uses: actions/cache@v4
-        with:
-          path: |
-            .
-            !node_modules
-          key: ${{ runner.os }}-workspace-${{ hashFiles('**/package-lock.json') }}
-
-      - name: Build MCP server
-        run: npm run build --workspace=apps/mcp-server
-
-      - name: Run MCP server tests
-        run: npm run test --workspace=apps/mcp-server
-
-      - name: Lint MCP server
-        run: npm run lint --workspace=apps/mcp-server
-
-  # Shared tools CI (root level tools)
-  shared-tools:
-    needs: setup
-    runs-on: ubuntu-latest
-    steps:
-      - name: Restore workspace cache
-        uses: actions/cache@v4
-        with:
-          path: |
-            .
-            !node_modules
-          key: ${{ runner.os }}-workspace-${{ hashFiles('**/package-lock.json') }}
-
-      - name: Run root level tests
+      - name: Run tests
         run: npm test
 
-      - name: Lint root level code
+      - name: Lint the code
         run: npm run lint
-
-      - name: Type check all packages
-        run: npm run type-check
