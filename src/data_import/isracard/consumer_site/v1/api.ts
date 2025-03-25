@@ -41,11 +41,13 @@ export interface IsracardTransactionVoucher {
   discountClubName: string | null;
 }
 
-interface IsracardTransactionsResponse {
+export interface IsracardTransactionsResponse {
   isSuccess: boolean;
   errorCode: string;
   israelAbroadVouchers: {
-    vouchers: IsracardTransactionVoucher[];
+    vouchers: {
+      israelAbroadVouchersList: IsracardTransactionVoucher[];
+    };
   };
 }
 

@@ -13,7 +13,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "run-script": "node --experimental-specifier-resolution=node --loader ts-node/esm"
   },
   "keywords": [],
   "author": "",

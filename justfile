@@ -1,36 +1,39 @@
 # This is a justfile for task automation
 # Run 'just --list' to see all available commands
 
-# Build application for production
+# List all recipes
+default:
+    @just --list
+
+# Build application
 build:
-  npm run build
+    npm run build
 
-# Start the application in development mode with hot-reload
+# Run dev mode
 dev:
-  npm run start:dev
+    npm run start:dev
 
-# Start the application in production mode
+# Run prod mode
 start:
-  npm run start:prod
+    npm run start:prod
 
 # Run tests
 test:
-  npm run test
+    npm run test
 
-# Lint the code using ESLint
+# Run linter
 lint:
-  npm run lint
+    npm run lint
 
-# Format the code using Prettier
+# Format code
 format:
-  npm run format
+    npm run format
 
-# Compile TypeScript files
+# Compile code
 compile:
-  npm run compile
+    npm run compile
 
-# Run a TypeScript script with ES module support
+# Run TypeScript script
 # Example: just script src/myfile.ts
-script file:
-  #!/usr/bin/env sh
-  NODE_OPTIONS="--loader ts-node/esm --no-warnings" npx ts-node-esm {{file}}
+script PATH:
+    npx ts-node {{PATH}}
